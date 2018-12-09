@@ -27,7 +27,6 @@ Le code est organisé en package :
 * `controllers` : Contrôleurs de l'application springboot
 * `config` : Configuration de l'application springboot (initialisation des beans)
 
-
 ## Remarque
 
 Un extrait de [ROUTE500](http://professionnels.ign.fr/route500) est présent dans `src/test/resources/idf/troncon_route.shp` à des fins de tests.
