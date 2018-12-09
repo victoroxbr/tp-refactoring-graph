@@ -20,7 +20,7 @@ public class Edge {
 
 	/**
 	 * Sommet final
-	 */	
+	 */
 	private Vertex target;
 
 	public String getId() {
@@ -58,7 +58,7 @@ public class Edge {
 
 	@Override
 	public String toString() {
-		return id+" ("+source+"->"+target+")";
+		return id + " (" + source + "->" + target + ")";
 	}
-	
+
 }

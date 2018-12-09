@@ -16,22 +16,19 @@ public class FindPathController {
 
 	@Autowired
 	private Graph graph;
-	
-    @RequestMapping("/")
-    public String hello() {
-        return "La documentation swagger de l'API devrait apparaître ici (voir springfox-swagger)...";
-    }
 
-    @RequestMapping("/find-path")
-    public List<Edge> findPath(
-		@RequestParam(value="origin", required=true) String originId,
-		@RequestParam(value="destination", required=true) String destinationId
-	) {
-    	DijkstraPathFinder pathFinder = new DijkstraPathFinder(graph);
-    	Vertex origin = graph.findVertex(originId);
-    	Vertex destination = graph.findVertex(destinationId);
-    	return pathFinder.findPath(origin, destination);
-    }
+	@RequestMapping("/")
+	public String hello() {
+		return "La documentation swagger de l'API devrait apparaître ici (voir springfox-swagger)...";
+	}
+
+	@RequestMapping("/find-path")
+	public List<Edge> findPath(@RequestParam(value = "origin", required = true) String originId,
+			@RequestParam(value = "destination", required = true) String destinationId) {
+		DijkstraPathFinder pathFinder = new DijkstraPathFinder(graph);
+		Vertex origin = graph.findVertex(originId);
+		Vertex destination = graph.findVertex(destinationId);
+		return pathFinder.findPath(origin, destination);
+	}
 
 }
-

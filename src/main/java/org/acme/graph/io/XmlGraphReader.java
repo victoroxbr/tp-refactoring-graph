@@ -25,6 +25,7 @@ public class XmlGraphReader {
 
 	/**
 	 * Lecture d'un graphe dans un fichier XML spécifique à l'application
+	 * 
 	 * @param file
 	 * @return
 	 * @throws Exception
@@ -62,7 +63,7 @@ public class XmlGraphReader {
 
 				String targetId = edgeElement.getAttribute("target").getValue();
 				edge.setTarget(graph.findVertex(targetId));
-				
+
 				graph.getEdges().add(edge);
 			}
 		}

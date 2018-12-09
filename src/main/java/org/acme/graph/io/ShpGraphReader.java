@@ -28,57 +28,65 @@ import com.vividsolutions.jts.geom.MultiLineString;
  *
  */
 public class ShpGraphReader {
-	
+
 	/**
 	 * Lecture du fichier shapefile
+	 * 
 	 * @param file
 	 * @return
 	 */
 	public static Graph read(File file) throws Exception {
 		Graph graph = new Graph();
 		Map<String, Object> map = new HashMap<>();
-        map.put("url", file.toURI().toURL());
+		map.put("url", file.toURI().toURL());
 
-        DataStore dataStore = DataStoreFinder.getDataStore(map);
-        String typeName = dataStore.getTypeNames()[0];
+		DataStore dataStore = DataStoreFinder.getDataStore(map);
+		String typeName = dataStore.getTypeNames()[0];
 
-        FeatureSource<SimpleFeatureType, SimpleFeature> dataSource = dataStore.getFeatureSource(typeName);
-        Filter filter = Filter.INCLUDE;
+		FeatureSource<SimpleFeatureType, SimpleFeature> dataSource = dataStore.getFeatureSource(typeName);
+		Filter filter = Filter.INCLUDE;
 
-        FeatureCollection<SimpleFeatureType, SimpleFeature> collection = dataSource.getFeatures(filter);
-        try (FeatureIterator<SimpleFeature> features = collection.features()) {
-            while (features.hasNext()) {
-                SimpleFeature feature = features.next();
-                
-                String     id       = feature.getID();
-                /* TODO : exploiter ce sens */
-                String     sens     = (String)feature.getAttribute("SENS");
-                LineString geometry = toLineString(feature) ;
+		FeatureCollection<SimpleFeatureType, SimpleFeature> collection = dataSource.getFeatures(filter);
+		try (FeatureIterator<SimpleFeature> features = collection.features()) {
+			while (features.hasNext()) {
+				SimpleFeature feature = features.next();
 
-                /* Création ou récupération des sommets initiaux et finaux */
-                Vertex source = getOrCreateVertex(graph, geometry.getStartPoint().getCoordinate());
-                Vertex target = getOrCreateVertex(graph, geometry.getEndPoint().getCoordinate());
-                
-                /* Création de l'arc */
-                Edge edge = new Edge();
-                edge.setId(id);
-                edge.setSource(source);
-                edge.setTarget(target);
-                graph.getEdges().add(edge);
-            }
-        }
-        return graph;
+				String id = feature.getID();
+				// String sens = (String)feature.getAttribute("SENS");
+				LineString geometry = toLineString(feature);
+
+				/* Création ou récupération des sommets initiaux et finaux */
+				Vertex source = getOrCreateVertex(graph, geometry.getStartPoint().getCoordinate());
+				Vertex target = getOrCreateVertex(graph, geometry.getEndPoint().getCoordinate());
+
+				/* Création de l'arc pour le parcours en sens direct */
+				Edge directEdge = new Edge();
+				directEdge.setId(id + "-direct");
+				directEdge.setSource(source);
+				directEdge.setTarget(target);
+				graph.getEdges().add(directEdge);
+
+				/* Création de l'arc pour le parcours en sens opposé */
+				Edge reverseEdge = new Edge();
+				reverseEdge.setId(id + "-reverse");
+				reverseEdge.setSource(target);
+				reverseEdge.setTarget(source);
+				graph.getEdges().add(reverseEdge);
+			}
+		}
+		return graph;
 	}
 
 	/**
 	 * Récupération ou création d'un sommet en assurant l'unicité
+	 * 
 	 * @param graph
 	 * @param coordinate
 	 * @return
 	 */
 	private static Vertex getOrCreateVertex(Graph graph, Coordinate coordinate) {
 		Vertex vertex = graph.findVertex(coordinate);
-		if ( vertex == null ) {
+		if (vertex == null) {
 			/* création d'un nouveau sommet car non trouvé */
 			vertex = new Vertex();
 			vertex.setId(Integer.toString(graph.getVertices().size()));
@@ -87,21 +95,22 @@ public class ShpGraphReader {
 		}
 		return vertex;
 	}
-	
+
 	/**
 	 * Récupération de la géométrie de l'arc à partir de la feature
+	 * 
 	 * @param feature
 	 * @return
 	 */
 	private static LineString toLineString(SimpleFeature feature) {
-		Geometry geometry = (Geometry)feature.getDefaultGeometryProperty().getValue();
-		if ( geometry instanceof LineString ) {
-			return (LineString)geometry;
-		}else if ( geometry instanceof MultiLineString ) {
-			MultiLineString mls = (MultiLineString)geometry;
+		Geometry geometry = (Geometry) feature.getDefaultGeometryProperty().getValue();
+		if (geometry instanceof LineString) {
+			return (LineString) geometry;
+		} else if (geometry instanceof MultiLineString) {
+			MultiLineString mls = (MultiLineString) geometry;
 			return (LineString) mls.getGeometryN(0);
-		}else {
-			throw new RuntimeException("Unsupported geometry type : "+geometry.getGeometryType());
+		} else {
+			throw new RuntimeException("Unsupported geometry type : " + geometry.getGeometryType());
 		}
 	}
 }

@@ -17,7 +17,7 @@ public class Graph {
 	 * Liste des sommets
 	 */
 	private List<Vertex> vertices = new ArrayList<Vertex>();
-	
+
 	/**
 	 * Liste des arcs
 	 */
@@ -25,6 +25,7 @@ public class Graph {
 
 	/**
 	 * Récupération de la liste sommets
+	 * 
 	 * @return
 	 */
 	public List<Vertex> getVertices() {
@@ -33,6 +34,7 @@ public class Graph {
 
 	/**
 	 * Récupération de la liste arcs
+	 * 
 	 * @return
 	 */
 	public void setVertices(List<Vertex> vertices) {
@@ -41,12 +43,13 @@ public class Graph {
 
 	/**
 	 * Recherche d'un sommet par identifiant
+	 * 
 	 * @param id
 	 * @return
 	 */
 	public Vertex findVertex(String id) {
 		for (Vertex vertex : vertices) {
-			if ( vertex.getId().equals(id) ){
+			if (vertex.getId().equals(id)) {
 				return vertex;
 			}
 		}
@@ -55,22 +58,23 @@ public class Graph {
 
 	/**
 	 * Recherche d'un sommet par coordonnées
+	 * 
 	 * @param coordinate
 	 * @return
 	 */
 	public Vertex findVertex(Coordinate coordinate) {
 		for (Vertex vertex : vertices) {
 			Coordinate candidate = vertex.getCoordinate();
-			if ( candidate != null && candidate.equals(coordinate) ) {
+			if (candidate != null && candidate.equals(coordinate)) {
 				return vertex;
 			}
 		}
 		return null;
 	}
 
-	
 	/**
 	 * Récupération de la liste des arcs
+	 * 
 	 * @return
 	 */
 	public List<Edge> getEdges() {
@@ -79,11 +83,11 @@ public class Graph {
 
 	/**
 	 * Définition de la liste des arcs
+	 * 
 	 * @param edges
 	 */
 	public void setEdges(List<Edge> edges) {
 		this.edges = edges;
 	}
-
 
 }

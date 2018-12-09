@@ -20,7 +20,7 @@ import org.apache.logging.log4j.Logger;
 public class DijkstraPathFinder {
 
 	private static final Logger log = LogManager.getLogger(DijkstraPathFinder.class);
-	
+
 	private Graph graph;
 
 	public DijkstraPathFinder(Graph graph) {
@@ -35,38 +35,37 @@ public class DijkstraPathFinder {
 	 * @return
 	 */
 	public List<Edge> findPath(Vertex origin, Vertex destination) {
+		log.info("findPath({},{})...",origin,destination);
 		initGraph(origin);
 		Vertex current;
 		while ((current = findNextVertex()) != null) {
 			visit(current);
 			if (destination.getReachingEdge() != null) {
+				log.info("findPath({},{}) : path found",origin,destination);
 				return buildPath(destination);
 			}
 		}
+		log.info("findPath({},{}) : path not found",origin,destination);
 		return null;
 	}
 
 	/**
-	 * Parcourt les arcs sortants pour atteindre les sommets
-	 * avec le meilleur coût
+	 * Parcourt les arcs sortants pour atteindre les sommets avec le meilleur coût
 	 * 
 	 * @param vertex
 	 */
 	private void visit(Vertex vertex) {
-		log.info("visit({})",vertex);
+		log.trace("visit({})", vertex);
 		List<Edge> outEdges = findOutEdges(vertex);
 		/*
-		 * On étudie chacun des arcs sortant pour atteindre
-		 * de nouveaux sommets ou mettre à jour des sommets
-		 * déjà atteint si on trouve un meilleur coût
+		 * On étudie chacun des arcs sortant pour atteindre de nouveaux sommets ou
+		 * mettre à jour des sommets déjà atteint si on trouve un meilleur coût
 		 */
 		for (Edge outEdge : outEdges) {
 			Vertex reachedVertex = outEdge.getTarget();
-			/* 
-			 * Convervation de arc permettant d'atteindre
-			 * le sommet avec un meilleur coût sachant
-			 * que les sommets non atteint ont pour coût
-			 * "POSITIVE_INFINITY"
+			/*
+			 * Convervation de arc permettant d'atteindre le sommet avec un meilleur coût
+			 * sachant que les sommets non atteint ont pour coût "POSITIVE_INFINITY"
 			 */
 			double newCost = vertex.getCost() + outEdge.getCost();
 			if (newCost < reachedVertex.getCost()) {
@@ -122,7 +121,7 @@ public class DijkstraPathFinder {
 	 * @param source
 	 */
 	private void initGraph(Vertex source) {
-		log.info("initGraph({})",source);
+		log.trace("initGraph({})", source);
 		for (Vertex vertex : graph.getVertices()) {
 			vertex.setCost(source == vertex ? 0.0 : Double.POSITIVE_INFINITY);
 			vertex.setReachingEdge(null);
@@ -131,9 +130,9 @@ public class DijkstraPathFinder {
 	}
 
 	/**
-	 * Recherche le prochain sommet à visiter. Dans l'algorithme
-	 * de Dijkstra, ce sommet est le sommet non visité le plus proche
-	 * de l'origine du calcul de plus court chemin.
+	 * Recherche le prochain sommet à visiter. Dans l'algorithme de Dijkstra, ce
+	 * sommet est le sommet non visité le plus proche de l'origine du calcul de plus
+	 * court chemin.
 	 * 
 	 * @return
 	 */

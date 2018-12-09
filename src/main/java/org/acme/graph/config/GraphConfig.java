@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import org.acme.graph.io.GraphReader;
 import org.acme.graph.model.Graph;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -12,8 +14,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ResourceLoader;
 
 /**
- * [spring] Cette classe permet d'initialiser des objects pour l'application
- * et de gérer des paramètres
+ * [spring] Cette classe permet d'initialiser des objects pour l'application et
+ * de gérer des paramètres
  * 
  * @see https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html
  * 
@@ -21,25 +23,45 @@ import org.springframework.core.io.ResourceLoader;
  */
 @Configuration
 public class GraphConfig {
-	
+
+	private static final Logger log = LogManager.getLogger(GraphConfig.class);
+
 	@Autowired
 	private ResourceLoader resourceLoader;
 
 	@Value("${graph.path}")
 	private String path;
 
+	/**
+	 * Chargement du graphe configuré via la variable "graph.path"
+	 * dans le contexte spring
+	 */
 	@Bean
 	public Graph graph() throws Exception {
-		return GraphReader.read(getGraphFile());
+		File file = getGraphFile();
+		log.info("Chargement du graphe {}...", file);
+		Graph graph = GraphReader.read(file);
+		log.info("Chargement du graphe terminé ({} sommets, {} arcs)", 
+			graph.getVertices().size(),
+			graph.getEdges().size()
+		);
+		return graph;
 	}
 
-	File getGraphFile() throws IOException{
-		if ( path.startsWith("classpath:") ) {
+	/**
+	 * 
+	 * Récupération du fichier configuré via la variable "graph.path" avec 
+	 * traitement du cas où c'est une resource ou un fichier externe au jar
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
+	File getGraphFile() throws IOException {
+		if (path.startsWith("classpath:")) {
 			return resourceLoader.getResource(path).getFile();
-		}else {
+		} else {
 			return new File(path);
 		}
 	}
-	
-	
+
 }

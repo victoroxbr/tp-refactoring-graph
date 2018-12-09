@@ -46,7 +46,7 @@ public class ShpGraphReaderTest {
 		}
 		
 		assertEquals(19207,graph.getVertices().size());
-		assertEquals(24768,graph.getEdges().size());
+		assertEquals(49536,graph.getEdges().size());
 		
 		
 		Vertex vertex1 = graph.findVertex("1");

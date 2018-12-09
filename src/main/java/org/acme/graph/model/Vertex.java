@@ -11,12 +11,12 @@ import com.vividsolutions.jts.geom.Coordinate;
  *
  */
 public class Vertex {
-	
+
 	/**
 	 * Identifiant du sommet
 	 */
-	private String id ;
-	
+	private String id;
+
 	/**
 	 * Position du sommet
 	 */
@@ -25,17 +25,16 @@ public class Vertex {
 	/**
 	 * dijkstra - coût pour atteindre le sommet
 	 */
-	private double cost ;
+	private double cost;
 	/**
 	 * dijkstra - arc entrant avec le meilleur coût
 	 */
-	private Edge reachingEdge ;
+	private Edge reachingEdge;
 	/**
 	 * dijkstra - indique si le sommet est visité
 	 */
-	private boolean visited ;
-	
-	
+	private boolean visited;
+
 	public String getId() {
 		return id;
 	}
@@ -76,7 +75,7 @@ public class Vertex {
 	public void setVisited(boolean visited) {
 		this.visited = visited;
 	}
-	
+
 	@Override
 	public String toString() {
 		return id;

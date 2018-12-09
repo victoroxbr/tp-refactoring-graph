@@ -18,17 +18,17 @@ public class GraphReader {
 	 * 
 	 * @param file
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public static Graph read(File file) throws Exception {
 		String fileName = file.getName().toLowerCase();
-		if ( fileName.endsWith(".xml") ) {
+		if (fileName.endsWith(".xml")) {
 			return XmlGraphReader.read(file);
-		}else if ( fileName.endsWith(".shp") ) {
+		} else if (fileName.endsWith(".shp")) {
 			return ShpGraphReader.read(file);
-		}else {
+		} else {
 			throw new RuntimeException("format non supporté (.shp ou .xml attendu)");
 		}
 	}
-	
+
 }

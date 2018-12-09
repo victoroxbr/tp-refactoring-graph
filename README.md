@@ -1,6 +1,5 @@
 # tp-refactoring-graph
 
-
 ## Description
 
 Correction du [tp-refactoring-graph](http://mborne.github.io/cours-patron-conception/annexe/tp-graph/index.html) associé au cours 
@@ -12,7 +11,6 @@ sur [les patrons de conception et principe de réfactoring](http://mborne.github
 * La branche par défaut ("initial") permet de récupérer un projet maven pour commencer à travailler
 * Les branches 0.1, 0.2, etc. correspondent aux corrections pour chaque question du TP
 * junit et mockito sont présents pour permettre l'écriture de tests unitaires
-
 
 ## Organisation du code
 
@@ -50,16 +48,22 @@ java -cp target -jar target/tp-refactoring-graph-0.1.0-SNAPSHOT.jar
 http://localhost:8080/find-path?origin=a&destination=c
 
 # extrait route500
-java -Dgraph.path=./src/test/resources/route500/idf/troncon_route.shp -jar target/tp-refactoring-graph-0.1.0-SNAPSHOT.jar
-
+java -Dgraph.path=src/test/resources/route500/idf/troncon_route.shp -jar target/tp-refactoring-graph-0.1.0-SNAPSHOT.jar
 ```
 
 
 ### En mode API sous eclipse
 
-Lancer "Application.java" par exemple avec les paramètres suivant :
+Lancer "Application.java" par exemple avec les paramètres suivant dans "VM Arguments" :
 
-`-Dgraph.path=${project_loc}/src/test/resources/graph/route500/idf/troncon_route.shp`
+```bash
+-Dgraph.path=${project_loc}/src/test/resources/route500/idf/troncon_route.shp
+```
+
+## Notes
+
+* Log en mode debug : `-Dlogging.level.org.acme.graph=DEBUG`
+
 
 
 
