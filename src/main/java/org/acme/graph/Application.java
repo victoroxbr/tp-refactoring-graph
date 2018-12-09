@@ -15,6 +15,10 @@ import com.github.ulisesbocchio.jar.resources.JarResourceLoader;
 @SpringBootApplication
 public class Application {
 
+	/**
+	 * ${project_loc}/src/test/resources/graph/route500/idf/troncon_route.shp
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		/*
 		 * Démarrage classique d'une application spring

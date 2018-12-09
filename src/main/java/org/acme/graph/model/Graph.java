@@ -3,6 +3,8 @@ package org.acme.graph.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.vividsolutions.jts.geom.Coordinate;
+
 /**
  * 
  * Un graphe matérialisé par une liste de sommets et d'arcs
@@ -50,6 +52,22 @@ public class Graph {
 		}
 		return null;
 	}
+
+	/**
+	 * Recherche d'un sommet par coordonnées
+	 * @param coordinate
+	 * @return
+	 */
+	public Vertex findVertex(Coordinate coordinate) {
+		for (Vertex vertex : vertices) {
+			Coordinate candidate = vertex.getCoordinate();
+			if ( candidate != null && candidate.equals(coordinate) ) {
+				return vertex;
+			}
+		}
+		return null;
+	}
+
 	
 	/**
 	 * Récupération de la liste des arcs

@@ -4,7 +4,7 @@
 ## Description
 
 Correction du [tp-refactoring-graph](http://mborne.github.io/cours-patron-conception/annexe/tp-graph/index.html) associé au cours 
-sur [les patrons de conception](http://mborne.github.io/cours-patron-conception/)
+sur [les patrons de conception et principe de réfactoring](http://mborne.github.io/cours-patron-conception/).
 
 
 ## Principes
@@ -23,9 +23,9 @@ Le projet contient deux points d'entrée :
 
 Le code est organisé en package :
 
-* `model` : Classes correspondant à la modélisation des données
-* ̀`io` : Lecture/écriture de graphe dans différents formats
-* `routing` : Classes correspondant aux algorithmes de calcul de plus court chemin
+* `model` : Modélisation des données de l'application
+* ̀`io` : Lecture de graphe dans différents formats (entrées/sorties)
+* `routing` : Implémentation de l'algorithme de calcul de plus court chemin
 * `controllers` : Contrôleurs de l'application springboot
 * `config` : Configuration de l'application springboot (initialisation des beans)
 
@@ -34,6 +34,7 @@ Le code est organisé en package :
 
 Un extrait de [ROUTE500](http://professionnels.ign.fr/route500) est présent dans `src/test/resources/idf/troncon_route.shp` à des fins de tests.
 
+## Utilisation
 
 ### En mode ligne CLI
 
@@ -41,10 +42,24 @@ Lancer l'application `cli.FindPath` dans eclipse.
 
 ### En mode API
 
-Lancer "Application.java" dans eclipse ou :
-
 ```bash
 mvn clean package
+
+# graphe de démonstration par défaut
 java -cp target -jar target/tp-refactoring-graph-0.1.0-SNAPSHOT.jar
 http://localhost:8080/find-path?origin=a&destination=c
+
+# extrait route500
+java -Dgraph.path=./src/test/resources/route500/idf/troncon_route.shp -jar target/tp-refactoring-graph-0.1.0-SNAPSHOT.jar
+
 ```
+
+
+### En mode API sous eclipse
+
+Lancer "Application.java" par exemple avec les paramètres suivant :
+
+`-Dgraph.path=${project_loc}/src/test/resources/graph/route500/idf/troncon_route.shp`
+
+
+

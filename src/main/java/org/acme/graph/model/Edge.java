@@ -56,4 +56,9 @@ public class Edge {
 		return source.getCoordinate().distance(target.getCoordinate());
 	}
 
+	@Override
+	public String toString() {
+		return id+" ("+source+"->"+target+")";
+	}
+	
 }

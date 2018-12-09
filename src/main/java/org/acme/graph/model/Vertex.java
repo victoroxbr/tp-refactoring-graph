@@ -76,4 +76,10 @@ public class Vertex {
 	public void setVisited(boolean visited) {
 		this.visited = visited;
 	}
+	
+	@Override
+	public String toString() {
+		return id;
+	}
+
 }

@@ -1,16 +1,18 @@
 package org.acme.graph.io;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.util.List;
 
 import org.acme.graph.model.Edge;
 import org.acme.graph.model.Graph;
 import org.acme.graph.model.Vertex;
+import org.junit.Test;
 
-import junit.framework.TestCase;
+public class XmlGraphReaderTest {
 
-public class GraphReaderRegressTest extends TestCase {
-
+	@Test
 	public void test01() throws Exception{
 		File file = new File(getClass().getResource("/graph/01.xml").getPath()) ;
 		Graph graph = XmlGraphReader.read(file);

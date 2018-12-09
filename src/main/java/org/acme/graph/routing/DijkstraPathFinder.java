@@ -7,6 +7,8 @@ import java.util.List;
 import org.acme.graph.model.Edge;
 import org.acme.graph.model.Graph;
 import org.acme.graph.model.Vertex;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * 
@@ -17,6 +19,8 @@ import org.acme.graph.model.Vertex;
  */
 public class DijkstraPathFinder {
 
+	private static final Logger log = LogManager.getLogger(DijkstraPathFinder.class);
+	
 	private Graph graph;
 
 	public DijkstraPathFinder(Graph graph) {
@@ -49,6 +53,7 @@ public class DijkstraPathFinder {
 	 * @param vertex
 	 */
 	private void visit(Vertex vertex) {
+		log.info("visit({})",vertex);
 		List<Edge> outEdges = findOutEdges(vertex);
 		/*
 		 * On étudie chacun des arcs sortant pour atteindre
@@ -117,6 +122,7 @@ public class DijkstraPathFinder {
 	 * @param source
 	 */
 	private void initGraph(Vertex source) {
+		log.info("initGraph({})",source);
 		for (Vertex vertex : graph.getVertices()) {
 			vertex.setCost(source == vertex ? 0.0 : Double.POSITIVE_INFINITY);
 			vertex.setReachingEdge(null);

@@ -3,7 +3,7 @@ package org.acme.graph.cli;
 import java.io.File;
 import java.util.List;
 
-import org.acme.graph.io.XmlGraphReader;
+import org.acme.graph.io.GraphReader;
 import org.acme.graph.model.Edge;
 import org.acme.graph.model.Graph;
 import org.acme.graph.model.Vertex;
@@ -22,8 +22,10 @@ public class FindPath
     public static void main( String[] args ) throws Exception
     {
     	if ( args.length != 3 ){
-    		System.out.println("<path> <source> <target>");
+    		System.out.println("Usage : <path> <source> <target>");
+    		System.out.println("Vous pouvez configurer eclipse avec l'une des options suivante :");
     		System.out.println("${project_loc}/src/test/resources/graph/01.xml a c");
+    		System.out.println("${project_loc}/src/test/resources/route500/idf/troncon_route.shp 1 1000");    		
     		System.exit(1);
     	}
     	// Chargement du graph...
@@ -31,7 +33,7 @@ public class FindPath
     	if ( ! graphFile.exists() ){
     		System.err.println("file not found : "+graphFile.getAbsolutePath());
     	}
-    	Graph graph = XmlGraphReader.read(graphFile);
+    	Graph graph = GraphReader.read(graphFile);
     	
     	// Récupération source et target
     	Vertex source = graph.findVertex(args[1]);
@@ -46,7 +48,7 @@ public class FindPath
     	DijkstraPathFinder pathFinder = new DijkstraPathFinder(graph);
     	List<Edge> pathEdges = pathFinder.findPath(source, target);
     	if ( pathEdges == null ){
-    		System.out.println("path not found");
+    		System.err.println("path not found");
     		return ;
     	}
     	System.out.println("Chemin trouvé : ");
