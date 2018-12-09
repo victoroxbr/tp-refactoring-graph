@@ -14,7 +14,7 @@ sur [les patrons de conception](http://mborne.github.io/cours-patron-conception/
 * junit et mockito sont présents pour permettre l'écriture de tests unitaires
 
 
-## Organisation du code
+## Organisation du code
 
 Le projet contient deux points d'entrée :
 
