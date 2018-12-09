@@ -3,7 +3,7 @@ package org.acme.graph.config;
 import java.io.File;
 import java.io.IOException;
 
-import org.acme.graph.io.GraphReader;
+import org.acme.graph.io.XmlGraphReader;
 import org.acme.graph.model.Graph;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,7 +30,7 @@ public class GraphConfig {
 
 	@Bean
 	public Graph graph() throws Exception {
-		return GraphReader.read(getGraphFile());
+		return XmlGraphReader.read(getGraphFile());
 	}
 
 	File getGraphFile() throws IOException{

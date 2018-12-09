@@ -3,7 +3,7 @@ package org.acme.graph.cli;
 import java.io.File;
 import java.util.List;
 
-import org.acme.graph.io.GraphReader;
+import org.acme.graph.io.XmlGraphReader;
 import org.acme.graph.model.Edge;
 import org.acme.graph.model.Graph;
 import org.acme.graph.model.Vertex;
@@ -31,7 +31,7 @@ public class FindPath
     	if ( ! graphFile.exists() ){
     		System.err.println("file not found : "+graphFile.getAbsolutePath());
     	}
-    	Graph graph = GraphReader.read(graphFile);
+    	Graph graph = XmlGraphReader.read(graphFile);
     	
     	// Récupération source et target
     	Vertex source = graph.findVertex(args[1]);

@@ -31,7 +31,7 @@
 		</dependency>
 
 		<!-- 
-		pour accès aux resources dans le jar
+		Pour simplifier l'accès aux resources dans le jar
 		https://stackoverflow.com/a/37202883
 		https://github.com/ulisesbocchio/spring-boot-jar-resources
 		 -->
@@ -103,10 +103,8 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<!-- https://www.baeldung.com/deployable-fat-jar-spring-boot -->
 			    <configuration>
 			        <mainClass>org.acme.graph.Application</mainClass>
-			        <layout>ZIP</layout>
 			    </configuration>				
 			</plugin>
 		</plugins>

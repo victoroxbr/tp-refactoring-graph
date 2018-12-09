@@ -16,58 +16,75 @@ import org.acme.graph.model.Vertex;
  *
  */
 public class DijkstraPathFinder {
-	
-	private Graph graph ;
-	
-	public DijkstraPathFinder(Graph graph){
-		this.graph  = graph;
+
+	private Graph graph;
+
+	public DijkstraPathFinder(Graph graph) {
+		this.graph = graph;
 	}
-	
+
 	/**
-	 * Recherche d'un sommet entre deux sommets
-	 * @param source
-	 * @param target
+	 * Calcul du plus court chemin entre une origine et une destination
+	 * 
+	 * @param origin
+	 * @param destination
 	 * @return
 	 */
-	public List<Edge> findPath(Vertex source, Vertex target){
-		initGraph(source);
-		Vertex current ;
-		while ( ( current = findNextVertex() ) != null ){
+	public List<Edge> findPath(Vertex origin, Vertex destination) {
+		initGraph(origin);
+		Vertex current;
+		while ((current = findNextVertex()) != null) {
 			visit(current);
-			if ( target.getReachingEdge() != null ){
-				return buildPath(target);
+			if (destination.getReachingEdge() != null) {
+				return buildPath(destination);
 			}
 		}
 		return null;
 	}
-	
+
 	/**
-	 * Parcours les arcs sortants pour atteindre les sommets
+	 * Parcourt les arcs sortants pour atteindre les sommets
+	 * avec le meilleur coût
+	 * 
 	 * @param vertex
 	 */
 	private void visit(Vertex vertex) {
 		List<Edge> outEdges = findOutEdges(vertex);
+		/*
+		 * On étudie chacun des arcs sortant pour atteindre
+		 * de nouveaux sommets ou mettre à jour des sommets
+		 * déjà atteint si on trouve un meilleur coût
+		 */
 		for (Edge outEdge : outEdges) {
 			Vertex reachedVertex = outEdge.getTarget();
+			/* 
+			 * Convervation de arc permettant d'atteindre
+			 * le sommet avec un meilleur coût sachant
+			 * que les sommets non atteint ont pour coût
+			 * "POSITIVE_INFINITY"
+			 */
 			double newCost = vertex.getCost() + outEdge.getCost();
-			if ( newCost < reachedVertex.getCost() ){
+			if (newCost < reachedVertex.getCost()) {
 				reachedVertex.setCost(newCost);
 				reachedVertex.setReachingEdge(outEdge);
 			}
 		}
+		/*
+		 * On marque le sommet comme visité
+		 */
 		vertex.setVisited(true);
 	}
-	
-	
+
 	/**
 	 * Recherche des arcs sortant d'un sommet
+	 * 
 	 * @param vertex
 	 * @return
 	 */
 	private List<Edge> findOutEdges(Vertex vertex) {
 		List<Edge> result = new ArrayList<Edge>();
-		for ( Edge candidate : graph.getEdges() ){
-			if ( candidate.getSource() != vertex ){
+		for (Edge candidate : graph.getEdges()) {
+			if (candidate.getSource() != vertex) {
 				continue;
 			}
 			result.add(candidate);
@@ -77,25 +94,26 @@ public class DijkstraPathFinder {
 
 	/**
 	 * Construit le chemin en remontant les relations incoming edge
+	 * 
 	 * @param target
 	 * @return
 	 */
-	private List<Edge> buildPath(Vertex target){
+	private List<Edge> buildPath(Vertex target) {
 		List<Edge> result = new ArrayList<Edge>();
 
 		Edge current = target.getReachingEdge();
 		do {
 			result.add(current);
 			current = current.getSource().getReachingEdge();
-		} while ( current != null );
-		
+		} while (current != null);
+
 		Collections.reverse(result);
 		return result;
 	}
-	
-	
+
 	/**
 	 * Prépare le graphe pour le calcul du plus court chemin
+	 * 
 	 * @param source
 	 */
 	private void initGraph(Vertex source) {
@@ -107,27 +125,30 @@ public class DijkstraPathFinder {
 	}
 
 	/**
-	 * Recherche le prochain sommet à visiter
+	 * Recherche le prochain sommet à visiter. Dans l'algorithme
+	 * de Dijkstra, ce sommet est le sommet non visité le plus proche
+	 * de l'origine du calcul de plus court chemin.
+	 * 
 	 * @return
 	 */
-	private Vertex findNextVertex(){
+	private Vertex findNextVertex() {
 		double minCost = Double.POSITIVE_INFINITY;
 		Vertex result = null;
 		for (Vertex vertex : graph.getVertices()) {
 			// sommet déjà visité?
-			if ( vertex.isVisited() ){
+			if (vertex.isVisited()) {
 				continue;
 			}
 			// sommet non atteint?
-			if ( vertex.getCost() == Double.POSITIVE_INFINITY ){
+			if (vertex.getCost() == Double.POSITIVE_INFINITY) {
 				continue;
 			}
 			// sommet le plus proche de la source?
-			if ( vertex.getCost() < minCost ){
+			if (vertex.getCost() < minCost) {
 				result = vertex;
 			}
 		}
 		return result;
 	}
-	
+
 }

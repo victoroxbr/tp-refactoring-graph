@@ -21,7 +21,7 @@ import com.vividsolutions.jts.geom.Coordinate;
  * @author MBorne
  *
  */
-public class GraphReader {
+public class XmlGraphReader {
 
 	/**
 	 * Lecture d'un graphe dans un fichier XML spécifique à l'application

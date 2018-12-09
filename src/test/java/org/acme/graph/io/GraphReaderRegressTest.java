@@ -13,7 +13,7 @@ public class GraphReaderRegressTest extends TestCase {
 
 	public void test01() throws Exception{
 		File file = new File(getClass().getResource("/graph/01.xml").getPath()) ;
-		Graph graph = GraphReader.read(file);
+		Graph graph = XmlGraphReader.read(file);
 		
 		// vertices
 		{
