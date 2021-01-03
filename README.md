@@ -38,15 +38,22 @@ Lancer l'application `cli.FindPath` dans eclipse.
 
 ### En mode API
 
+1) Construire le jar :
+
 ```bash
 mvn clean package
+```
 
-# graphe de démonstration par défaut
+2) Démarrer l'API
+
+```bash
+# Option 1 : Charger le graphe de démonstration
 java -cp target -jar target/tp-refactoring-graph-0.1.0-SNAPSHOT.jar
-http://localhost:8080/find-path?origin=a&destination=c
+# -> ouvrir http://localhost:8080/find-path?origin=a&destination=c
 
-# extrait route500
+# Option 2 : Charger l'extrait ROUTE500
 java -Dgraph.path=src/test/resources/route500/idf/troncon_route.shp -jar target/tp-refactoring-graph-0.1.0-SNAPSHOT.jar
+# -> Ouvrir http://localhost:8080/find-path?origin=1&destination=1000
 ```
 
 
@@ -61,7 +68,5 @@ Lancer "Application.java" par exemple avec les paramètres suivant dans "VM Argu
 ## Notes
 
 * Log en mode debug : `-Dlogging.level.org.acme.graph=DEBUG`
-
-
-
+* [VisualVM](https://visualvm.github.io/) pourra vous aider
 
