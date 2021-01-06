@@ -26,6 +26,8 @@ public class Edge {
 	public Edge(Vertex source, Vertex target) {
 		this.source = source;
 		this.target = target;
+		this.source.addOutEdge(this);
+		this.target.addInEdge(this);
 	}
 
 	public String getId() {
