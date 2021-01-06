@@ -1,6 +1,7 @@
 package org.acme.graph.routing;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.acme.graph.model.Edge;
@@ -15,6 +16,7 @@ public class PathTree {
 	private Map<Vertex, PathNode> nodes;
 	
 	public PathTree(Graph graph, Vertex destination) {
+		this.nodes = new HashMap<Vertex, PathNode>();
 		log.trace("initGraph({})", destination);
 		for (Vertex vertex : graph.getVertices()) {
 			PathNode node = new PathNode();	
@@ -41,4 +43,5 @@ public class PathTree {
 		Collections.reverse(result.getEdges());
 		return result;
 	}
+
 }
