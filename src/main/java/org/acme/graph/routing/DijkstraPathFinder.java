@@ -1,15 +1,12 @@
 package org.acme.graph.routing;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.acme.graph.model.Edge;
 import org.acme.graph.model.Graph;
-import org.acme.graph.model.Path;
 import org.acme.graph.model.Vertex;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

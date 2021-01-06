@@ -1,7 +1,6 @@
 package org.acme.graph.controllers;
 
 import org.acme.graph.model.Graph;
-import org.acme.graph.model.Path;
 import org.acme.graph.model.Vertex;
 import org.acme.graph.routing.DijkstraPathFinder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ public class FindPathController {
 	}
 
 	@RequestMapping("/find-path")
-	public Path findPath(
+	public org.acme.graph.routing.Path findPath(
 		@RequestParam(value = "origin", required = true)
 		String originId,
 		@RequestParam(value = "destination", required = true)

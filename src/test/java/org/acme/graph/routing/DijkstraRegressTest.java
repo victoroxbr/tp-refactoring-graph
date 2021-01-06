@@ -2,14 +2,10 @@ package org.acme.graph.routing;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-import java.util.List;
 
 import org.acme.graph.TestGraphFactory;
 import org.acme.graph.model.Edge;
 import org.acme.graph.model.Graph;
-import org.acme.graph.model.Path;
 import org.junit.Before;
 import org.junit.Test;
 
