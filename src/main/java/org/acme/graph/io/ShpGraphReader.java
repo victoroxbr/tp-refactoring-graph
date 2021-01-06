@@ -61,9 +61,11 @@ public class ShpGraphReader {
 
 				/* Création de l'arc pour le parcours en sens direct */
 				Edge directEdge = graph.createEdge(source, target, id + "-direct");
+				directEdge.setGeometry(geometry);
 
 				/* Création de l'arc pour le parcours en sens opposé */
 				Edge reverseEdge = graph.createEdge(target, source, id + "-reverse");
+				reverseEdge.setGeometry(geometry);
 			}
 		}
 		return graph;

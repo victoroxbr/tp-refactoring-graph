@@ -32,13 +32,20 @@ public class Edge {
 	 */
 	private Vertex target;
 	
+	/**
+	 * Géométrie de l'arc
+	 */
+	private LineString geometry;
+	
 	public Edge(Vertex source, Vertex target) {
-		assert(source != null);
-		assert(target != null);
 		this.source = source;
 		this.target = target;
 		this.source.addOutEdge(this);
 		this.target.addInEdge(this);
+		
+		Coordinate[] c = {this.source.getCoordinate(), this.target.getCoordinate()};
+		GeometryFactory geometryFactory = new GeometryFactory();
+		this.geometry = geometryFactory.createLineString(c);
 	}
 
 	public String getId() {
@@ -61,11 +68,7 @@ public class Edge {
 	
 	@JsonSerialize(using = GeometrySerializer.class)
 	public LineString getGeometry() {
-		Coordinate[] c = new Coordinate[2];
-		c[0] = this.source.getCoordinate();
-		c[1] = this.target.getCoordinate();
-		GeometryFactory geometryFactory = new GeometryFactory();
-		return geometryFactory.createLineString(c);
+		return geometry;
 	}
 
 	public Vertex getTarget() {
@@ -78,12 +81,19 @@ public class Edge {
 	 * @return
 	 */
 	public double getCost() {
-		return source.getCoordinate().distance(target.getCoordinate());
+		return geometry.getLength();
 	}
 
 	@Override
 	public String toString() {
 		return id + " (" + source + "->" + target + ")";
+	}
+
+	/**
+	 * @param geometry the geometry to set
+	 */
+	public void setGeometry(LineString geometry) {
+		this.geometry = geometry;
 	}
 
 }
