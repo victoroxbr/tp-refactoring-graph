@@ -29,7 +29,7 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-		<!-- 
+		<!--
 		Pour simplifier l'accès aux resources dans le jar
 		https://stackoverflow.com/a/37202883
 		https://github.com/ulisesbocchio/spring-boot-jar-resources
@@ -110,7 +110,15 @@
 					<mainClass>org.acme.graph.Application</mainClass>
 				</configuration>
 			</plugin>
-			<!-- pour rapport de couverture hors eclipse
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<!-- pour rapport de couverture hors eclipse -->
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -124,7 +132,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			-->
 		</plugins>
 	</build>
 
