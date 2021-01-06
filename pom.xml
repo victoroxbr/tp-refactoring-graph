@@ -110,7 +110,7 @@
 					<mainClass>org.acme.graph.Application</mainClass>
 				</configuration>
 			</plugin>
-			<!-- pour rapport de couverture hors eclipse -->
+			<!-- pour rapport de couverture hors eclipse
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -124,6 +124,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			-->
 		</plugins>
 	</build>
 
