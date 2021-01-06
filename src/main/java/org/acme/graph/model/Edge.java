@@ -40,16 +40,8 @@ public class Edge {
 		return source;
 	}
 
-	public void setSource(Vertex source) {
-		this.source = source;
-	}
-
 	public Vertex getTarget() {
 		return target;
-	}
-
-	public void setTarget(Vertex target) {
-		this.target = target;
 	}
 
 	/**

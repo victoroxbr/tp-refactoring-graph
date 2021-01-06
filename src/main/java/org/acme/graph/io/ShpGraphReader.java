@@ -60,14 +60,10 @@ public class ShpGraphReader {
 				Vertex target = getOrCreateVertex(graph, geometry.getEndPoint().getCoordinate());
 
 				/* Création de l'arc pour le parcours en sens direct */
-				Edge directEdge = new Edge(source, target);
-				directEdge.setId(id + "-direct");
-				graph.getEdges().add(directEdge);
+				Edge directEdge = graph.createEdge(source, target, id + "-direct");
 
 				/* Création de l'arc pour le parcours en sens opposé */
-				Edge reverseEdge = new Edge(target, source);
-				reverseEdge.setId(id + "-reverse");
-				graph.getEdges().add(reverseEdge);
+				Edge reverseEdge = graph.createEdge(target, source, id + "-reverse");
 			}
 		}
 		return graph;
@@ -84,10 +80,7 @@ public class ShpGraphReader {
 		Vertex vertex = graph.findVertex(coordinate);
 		if (vertex == null) {
 			/* création d'un nouveau sommet car non trouvé */
-			vertex = new Vertex();
-			vertex.setId(Integer.toString(graph.getVertices().size()));
-			vertex.setCoordinate(coordinate);
-			graph.getVertices().add(vertex);
+			vertex = graph.createVertex(coordinate, Integer.toString(graph.getVertices().size()));
 		}
 		return vertex;
 	}

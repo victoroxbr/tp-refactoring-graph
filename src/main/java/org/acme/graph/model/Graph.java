@@ -31,14 +31,35 @@ public class Graph {
 	public List<Vertex> getVertices() {
 		return vertices;
 	}
-
+	
 	/**
-	 * Récupération de la liste arcs
+	 * Fabrique de sommets
 	 * 
+	 * @param coordinate
+	 * @param id
 	 * @return
 	 */
-	public void setVertices(List<Vertex> vertices) {
-		this.vertices = vertices;
+	public Vertex createVertex(Coordinate coordinate, String id) {
+		Vertex v = new Vertex();
+		v.setCoordinate(coordinate);
+		v.setId(id);
+		this.vertices.add(v);
+		return v;
+	}
+	
+	/**
+	 * Fabrique d'arcs
+	 * 
+	 * @param source
+	 * @param target
+	 * @param id
+	 * @return
+	 */
+	public Edge createEdge(Vertex source, Vertex target, String id) {
+		Edge e = new Edge(source, target);
+		e.setId(id);
+		this.edges.add(e);
+		return e;
 	}
 
 	/**
@@ -79,15 +100,6 @@ public class Graph {
 	 */
 	public List<Edge> getEdges() {
 		return edges;
-	}
-
-	/**
-	 * Définition de la liste des arcs
-	 * 
-	 * @param edges
-	 */
-	public void setEdges(List<Edge> edges) {
-		this.edges = edges;
 	}
 
 }
