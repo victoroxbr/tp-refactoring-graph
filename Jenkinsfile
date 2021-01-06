@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'docker.io/library/maven:3-alpine'
+            image 'docker.io/library/maven:3.6-openjdk-15'
             label 'docker'
             // "docker volume create maven-home" requis sur le noeud
             args '-v maven-home:/usr/share/maven'
