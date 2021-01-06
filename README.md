@@ -69,4 +69,5 @@ Lancer "Application.java" par exemple avec les paramètres suivant dans "VM Argu
 
 * Log en mode debug : `-Dlogging.level.org.acme.graph=DEBUG`
 * [VisualVM](https://visualvm.github.io/) pourra vous aider
+* Génération de rapport de couverture : `mvn clean package jacoco:report`
 
